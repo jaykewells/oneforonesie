@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+<h1>List a Onesie</h1>
+<form method="post" th:object="${onesie}">
+<br/>
+
+    <label th:for="title">Listing Title</label>
+    <input type="text" th:field="*{title}"/>
+    <span th:errors="*{title}" class="errors"></span><br/>
+
+    <label th:for="description">Description</label>
+    <textarea th:field="*{description}"></textarea>
+    <span th:errors="*{description}" class="errors"></span><br/>
+
+    <input type="submit" value="Add Listing"/>
+</form>
+</body>
+</html>

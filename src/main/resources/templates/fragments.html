@@ -2,13 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
-    <title th:text="${title} + ' || One for Onesie">My Cheeses</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <title th:text="${title} + ' || One for Onesie'">One for Onesie</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
+<div th:fragment="nav">
+    <a th:href="@{/home}"><img th:src="@{~/img/logo.png}" width="150px" height="75px"/></a>
+</div>
+
+<div class="card" style="col-sm-3" th:fragment="list-card">
+    <a th:href="@{/listing/view/} + ${onesie.id}">
+    <img class="card-img-top" src="@{~/img/logo.png}" width="150px" height="75px"/>
+    </a>
+    <h4 class="card-title" th:text="${onesie.title}"></h4>
+    <a th:href="@{/listing/view/} + ${onesie.id}" class="btn btn-primary">View</a>
+</div>
 </body>
 </html>

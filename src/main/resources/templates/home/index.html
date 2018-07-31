@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-Hello, World!
+<div th:replace="fragments :: nav"></div>
+<a href="listing/add">Add a Onesie</a><br/>
+<table>
+   <!-- <div th:replace="fragments :: list-card" th:each="onesie: ${onesies}"></div>-->
+    <tr th:each="onesie : ${onesies}">
+        <td><a th:href="@{/listing/view/} + ${onesie.id}" th:text="${onesie.title}"></a></td>
+        <td th:text="${onesie.description}"></td>
+    </tr>
+</table>
 </body>
 </html>

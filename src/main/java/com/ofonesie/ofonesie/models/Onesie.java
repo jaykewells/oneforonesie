@@ -15,7 +15,7 @@ public class Onesie {
     private int id;
 
     @NotNull
-    @Size(min=3, max=120) //Limits length of title for display
+    @Size(min=3, max=120, message = "Title Must Be At Least 3 Characters Long") //Limits length of title for display
     private String title;
 
     @NotNull
