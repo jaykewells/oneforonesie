@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+<h4 th:text="${title}"></h4>
+<a th:href="@{/admin}">Back to Admin</a>
+<form th:object="${category}" method="post">
+    <label th:for="title">Category Name</label>
+    <input type="text" th:field="*{title}"/>
+    <span th:errors="*{title}" class="errors"></span><br/>
+    <input type="submit" value="Add Listing"/>
+</form>
+<hr/>
+<table>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.title}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -5,10 +5,10 @@
 <div th:replace="fragments :: nav"></div>
 <a href="listing/add">Add a Onesie</a><br/>
 <table>
-   <!-- <div th:replace="fragments :: list-card" th:each="onesie: ${onesies}"></div>-->
-    <tr th:each="onesie : ${onesies}">
-        <td><a th:href="@{/listing/view/} + ${onesie.id}" th:text="${onesie.title}"></a></td>
-        <td th:text="${onesie.description}"></td>
+   <!-- <div th:replace="fragments :: list-card" th:each="listing: ${onesies}"></div>-->
+    <tr th:each="listing : ${listings}">
+        <td><a th:href="@{/listing/view/} + ${listing.id}" th:text="${listing.title}"></a></td>
+        <td th:text="${listing.description}"></td>
     </tr>
 </table>
 </body>

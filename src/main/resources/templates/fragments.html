@@ -15,11 +15,11 @@
 </div>
 
 <div class="card" style="col-sm-3" th:fragment="list-card">
-    <a th:href="@{/listing/view/} + ${onesie.id}">
+    <a th:href="@{/listing/view/} + ${listing.id}">
     <img class="card-img-top" src="@{~/img/logo.png}" width="150px" height="75px"/>
     </a>
-    <h4 class="card-title" th:text="${onesie.title}"></h4>
-    <a th:href="@{/listing/view/} + ${onesie.id}" class="btn btn-primary">View</a>
+    <h4 class="card-title" th:text="${listing.title}"></h4>
+    <a th:href="@{/listing/view/} + ${listing.id}" class="btn btn-primary">View</a>
 </div>
 </body>
 </html>

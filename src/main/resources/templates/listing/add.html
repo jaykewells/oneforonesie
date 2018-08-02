@@ -4,7 +4,7 @@
 <body>
 <div th:replace="fragments :: nav"></div>
 <h1>List a Onesie</h1>
-<form method="post" th:object="${onesie}">
+<form method="post" th:object="${listing}">
 <br/>
 
     <label th:for="title">Listing Title</label>
@@ -14,7 +14,51 @@
     <label th:for="description">Description</label>
     <textarea th:field="*{description}"></textarea>
     <span th:errors="*{description}" class="errors"></span><br/>
+    <h5>Tags</h5>
+    <span th:each="category : ${categories}">
 
+            <div th:switch="${category.title}">
+                <!--TODO: Fix Switch Casing, Showing All-->
+            <div th:case="Size">
+                    <label th:for="${category.title}" th:text="${category.title}"></label>
+                    <input type="radio" th:each="tag : ${category.tags}"
+                       th:name="${category.title}"
+                       th:value="${tag.title}"
+                       th:text="${tag.title}"
+                        th:field="*{size}">
+                    </input>
+            </div>
+            <div th:case="Season">
+                <label th:for="${category.title}" th:text="${category.title}"></label>
+                <input type="radio" th:each="tag : ${category.tags}"
+                       th:name="${category.title}"
+                       th:value="${tag.title}"
+                       th:text="${tag.title}"
+                       th:field="*{season}">
+            </input>
+            </div>
+            <div th:case="Color">
+                <label th:for="${category.title}" th:text="${category.title}"></label>
+                <input type="radio" th:each="tag : ${category.tags}"
+                       th:name="${category.title}"
+                       th:value="${tag.title}"
+                       th:text="${tag.title}"
+                       th:field="*{color}">
+                </input>
+            </div>
+            <div th:case="Theme">
+                <label th:for="${category.title}" th:text="${category.title}"></label>
+                <input type="radio" th:each="tag : ${category.tags}"
+                       th:name="${category.title}"
+                       th:value="${tag.title}"
+                       th:text="${tag.title}"
+                       th:field="*{theme}">
+                </input>
+            </div>
+            <div th:case="*"></div>
+            </div>
+    <br/>
+    </span>
     <input type="submit" value="Add Listing"/>
 </form>
 </body>

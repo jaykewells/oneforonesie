@@ -4,7 +4,21 @@
 <body>
 <div th:replace="fragments :: nav"></div>
 
-<h2 th:text="${onesie.title}"></h2>
-<p th:text="${onesie.description}"/>
+<h2 th:text="${listing.title}"></h2>
+<p th:text="${listing.description}"/>
+<table>
+    <tr>
+        <td>Size: </td>
+        <td th:text="${listing.size}"></td>
+        <td>Season: </td>
+        <td th:text="${listing.color}"></td>
+    </tr>
+    <tr>
+        <td>Color: </td>
+        <td th:text="${listing.color}"></td>
+        <td>Theme: </td>
+        <td th:text="${listing.theme}"></td>
+    </tr>
+</table>
 </body>
 </html>

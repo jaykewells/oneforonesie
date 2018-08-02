@@ -1,36 +1,41 @@
 package com.ofonesie.ofonesie.models;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Onesie {
+public class Tag {
 
     @Id
     @GeneratedValue
     private int id;
 
     @NotNull
-    @Size(min=3, max=120, message = "Title Must Be At Least 3 Characters Long") //Limits length of title for display
+    @Size(min=2, max=50, message = "Tag Name Must Be At Least 3 Characters and Less Than 50")
     private String title;
 
-    @NotNull
-    @Size(min=1, message = "Description Must Not Be Empty")
+    @Size(max=300, message= "Description Must Be Less than 300 Characters")
     private String description;
 
-    public Onesie(){}
+    @ManyToOne
+    private Category category;
 
-    public Onesie(String aTitle, String aDescription){
+
+
+    public Tag(){}
+
+    public Tag(String aTitle, String aDesc){
+
         this.title = aTitle;
-        this.description = aDescription;
+        this.description = aDesc;
+
     }
+
     public int getId() {
         return id;
     }
+
 
     public String getTitle() {
         return title;
@@ -47,4 +52,12 @@ public class Onesie {
     public void setDescription(String description) {
         this.description = description;
     }
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 }
