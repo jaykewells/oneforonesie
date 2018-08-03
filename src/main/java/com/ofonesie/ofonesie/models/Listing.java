@@ -23,10 +23,10 @@ public class Listing {
     private String description;
 
     //TODO: Rework as HashMap with the Category Name as the Key and the Tag as the value
-    private String size;
-    private String season;
-    private String color;
-    private String theme;
+    private int size;
+    private int season;
+    private int color;
+    private int theme;
 
 
 
@@ -58,35 +58,35 @@ public class Listing {
         this.description = description;
     }
 
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public String getSeason() {
+    public int getSeason() {
         return season;
     }
 
-    public void setSeason(String season) {
+    public void setSeason(int season) {
         this.season = season;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
-    public String getTheme() {
+    public int getTheme() {
         return theme;
     }
 
-    public void setTheme(String theme) {
+    public void setTheme(int theme) {
         this.theme = theme;
     }
 }

@@ -11,5 +11,12 @@
         <td th:text="${listing.description}"></td>
     </tr>
 </table>
+
+<h4>listingDAO TEST</h4>
+<table>
+    <tr th:each="listing : ${dao}">
+        <td th:text="${listing.title}"></td>
+    </tr>
+</table>
 </body>
 </html>

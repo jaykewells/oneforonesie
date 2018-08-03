@@ -18,30 +18,31 @@
     <span th:each="category : ${categories}">
 
             <div th:switch="${category.title}">
-                <!--TODO: Fix Switch Casing, Showing All-->
             <div th:case="Size">
                     <label th:for="${category.title}" th:text="${category.title}"></label>
-                    <input type="radio" th:each="tag : ${category.tags}"
-                       th:name="${category.title}"
-                       th:value="${tag.title}"
-                       th:text="${tag.title}"
-                        th:field="*{size}">
-                    </input>
+
+           <input type="radio" th:each="tag : ${category.tags}"
+                  th:name="${category.title}"
+                  th:value="${tag.id}"
+                  th:text="${tag.title}"
+                  th:field="*{size}">
+            </input>
             </div>
             <div th:case="Season">
                 <label th:for="${category.title}" th:text="${category.title}"></label>
                 <input type="radio" th:each="tag : ${category.tags}"
                        th:name="${category.title}"
-                       th:value="${tag.title}"
+                       th:value="${tag.id}"
                        th:text="${tag.title}"
                        th:field="*{season}">
-            </input>
+                </input>
             </div>
+
             <div th:case="Color">
                 <label th:for="${category.title}" th:text="${category.title}"></label>
                 <input type="radio" th:each="tag : ${category.tags}"
                        th:name="${category.title}"
-                       th:value="${tag.title}"
+                       th:value="${tag.id}"
                        th:text="${tag.title}"
                        th:field="*{color}">
                 </input>
@@ -50,14 +51,15 @@
                 <label th:for="${category.title}" th:text="${category.title}"></label>
                 <input type="radio" th:each="tag : ${category.tags}"
                        th:name="${category.title}"
-                       th:value="${tag.title}"
+                       th:value="${tag.id}"
                        th:text="${tag.title}"
                        th:field="*{theme}">
                 </input>
             </div>
             <div th:case="*"></div>
-            </div>
+
     <br/>
+            </div>
     </span>
     <input type="submit" value="Add Listing"/>
 </form>

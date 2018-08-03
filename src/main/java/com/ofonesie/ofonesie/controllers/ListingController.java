@@ -1,6 +1,7 @@
 package com.ofonesie.ofonesie.controllers;
 
 import com.ofonesie.ofonesie.models.Listing;
+import com.ofonesie.ofonesie.models.Tag;
 import com.ofonesie.ofonesie.models.data.CategoryDao;
 import com.ofonesie.ofonesie.models.data.ListingDao;
 import com.ofonesie.ofonesie.models.data.TagDao;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 /**
  * Created by Jayke Wells
@@ -58,9 +60,14 @@ public class ListingController {
     @RequestMapping(value="view/{listingId}")
     public String viewListing(Model model, @PathVariable int listingId){
         Listing listing = listingDao.findOne(listingId);
+        HashMap<String, Tag> tags = new HashMap<String, Tag>();
         model.addAttribute("title", listing.getTitle());
         model.addAttribute("listing", listing);
-
+        tags.put("Size", tagDao.findOne(listing.getSize()));
+        tags.put("Season", tagDao.findOne(listing.getSeason()));
+        tags.put("Color", tagDao.findOne(listing.getColor()));
+        tags.put("Theme", tagDao.findOne(listing.getTheme()));
+        model.addAttribute("tags", tags);
         return "listing/listing";
     }
 }
