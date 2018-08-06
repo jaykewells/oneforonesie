@@ -28,9 +28,9 @@ public class Listing {
     private int color;
     private int theme;
 
+    @ManyToOne
+    private UserInfo owner;
 
-
-//TODO: Add a Tag object field for each Category Associated With a Onesie
     public Listing(){}
 
     public Listing(String aTitle, String aDescription){
@@ -88,5 +88,17 @@ public class Listing {
 
     public void setTheme(int theme) {
         this.theme = theme;
+    }
+
+    public int getOwnerId() {
+        return owner.getId();
+    }
+
+    public void setOwner(UserInfo owner) {
+        this.owner = owner;
+    }
+
+    public UserInfo getOwner(){
+        return this.owner;
     }
 }

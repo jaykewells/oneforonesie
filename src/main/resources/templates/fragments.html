@@ -11,7 +11,8 @@
 <body>
 
 <div th:fragment="nav">
-    <a th:href="@{/home}"><img th:src="@{~/img/logo.png}" width="150px" height="75px"/></a>
+    <a th:href="@{/home}"><img th:src="@{~/img/logo.png}" width="150px" height="75px"/></a><br/>
+    <a th:href="@{/user/logout}">Logout</a>
 </div>
 
 <div class="card" style="col-sm-3" th:fragment="list-card">

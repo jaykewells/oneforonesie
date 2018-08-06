@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+
+<h3>Login to One for Onesie</h3>
+<p th:if="${param.error}" class="error">
+    Bad Credentials.
+</p>
+
+<form th:action="@{/user/login}" method="POST">
+    User Name : <input type="text" name="username"/><br/><br/>
+    Password : <input type="password" name="password"/> <br/><br/>
+    <input type="submit" value="Login"/>
+</form>
+
+</body>
+</html>
