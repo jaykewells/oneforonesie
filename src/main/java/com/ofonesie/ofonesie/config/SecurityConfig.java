@@ -17,7 +17,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyAppUserDetailsService myAppUserDetailsService;
 
-    //TODO: COnfigure Security Correctly in order to allow site to actually be visible to users.
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()

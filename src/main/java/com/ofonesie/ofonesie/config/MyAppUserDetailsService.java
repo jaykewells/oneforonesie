@@ -1,7 +1,7 @@
 package com.ofonesie.ofonesie.config;
 
 import com.ofonesie.ofonesie.models.UserInfo;
-import com.ofonesie.ofonesie.models.data.IUserInfoDAO;
+import com.ofonesie.ofonesie.models.data.UserInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,11 +16,11 @@ import java.util.Arrays;
 public class MyAppUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private IUserInfoDAO userInfoDAO;
+    private UserInfoDAO userInfoDAO;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-        UserInfo activeUserInfo = userInfoDAO.getActiveUser(userName);
+        UserInfo activeUserInfo = userInfoDAO.findByUsername(userName);
         GrantedAuthority authority = new SimpleGrantedAuthority(activeUserInfo.getRole());
         UserDetails userDetails = new User(activeUserInfo.getUsername(),
                 activeUserInfo.getPassword(), Arrays.asList(authority));

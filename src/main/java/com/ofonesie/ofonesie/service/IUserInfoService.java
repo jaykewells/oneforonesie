@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IUserInfoService {
 
+/*
     @Secured({"ROLE_ADMIN"})
     List<Listing> getAllUserListings();
+*/
 }

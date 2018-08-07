@@ -50,11 +50,12 @@ public class UserInfo {
 
     public UserInfo(){}
 
-    public UserInfo(String username, String password, String firstName, String lastName, String address1,
+    public UserInfo(String username, String password, String firstName,
+                    String lastName, String address1,
                     String city, String state, Integer zip) {
         this.username = username;
         this.password = password;
-        this.role = "UserInfo";
+        this.role = "User";
         this.firstName = firstName;
         this.lastName = lastName;
         this.address1 = address1;
