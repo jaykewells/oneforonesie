@@ -3,7 +3,8 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: nav"></div>
-<a href="listing/add">Add a Onesie</a><br/>
+<div th:text="${message}"></div>
+<a th:href="@{/listing/add}">Add a Onesie</a><br/>
 <table>
    <!-- <div th:replace="fragments :: list-card" th:each="listing: ${onesies}"></div>-->
     <tr th:each="listing : ${listings}">
@@ -12,11 +13,5 @@
     </tr>
 </table>
 
-<h4>listingDAO TEST</h4>
-<table>
-    <tr th:each="listing : ${dao}">
-        <td th:text="${listing.title}"></td>
-    </tr>
-</table>
 </body>
 </html>

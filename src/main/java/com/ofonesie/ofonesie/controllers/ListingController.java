@@ -5,14 +5,12 @@ import com.ofonesie.ofonesie.models.Tag;
 import com.ofonesie.ofonesie.models.data.CategoryDao;
 import com.ofonesie.ofonesie.models.data.ListingDao;
 import com.ofonesie.ofonesie.models.data.TagDao;
+import com.ofonesie.ofonesie.models.data.UserInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -37,28 +35,44 @@ public class ListingController {
     @Autowired
     private TagDao tagDao;
 
+    @Autowired
+    private UserInfoDAO userInfoDao;
+
     @RequestMapping(value="add", method=RequestMethod.GET)
-    public String addListing(Model model){
+    public String addListing(Model model, @CookieValue(value="user", defaultValue="none") String username){
+        if(username.equals("none")) {
+            return "redirect:/user/login";
+        }
+
         model.addAttribute("title", "New Listing");
         model.addAttribute(new Listing());
         model.addAttribute("categories", categoryDao.findAll());
         return "listing/add";
     }
     @RequestMapping(value="add", method=RequestMethod.POST)
-    public String saveListing(Model model, @ModelAttribute @Valid Listing listing, Errors errors){
+    public String saveListing(Model model, @ModelAttribute @Valid Listing listing, Errors errors, @CookieValue(value="user", defaultValue="none") String username){
 
+        if(username.equals("none")) {
+            return "redirect:/user/login";
+        }
         model.addAttribute("categories", categoryDao.findAll());
         if (errors.hasErrors()){
             model.addAttribute("title", "New Listing");
             model.addAttribute("listing", listing);
             return "listing/add";
         }
+        listing.setOwner(userInfoDao.findByUsername(username));
         listingDao.save(listing);
         return "redirect:view/" + listing.getId();
     }
 
     @RequestMapping(value="view/{listingId}")
-    public String viewListing(Model model, @PathVariable int listingId){
+    public String viewListing(Model model, @PathVariable int listingId, @CookieValue(value="user", defaultValue="none") String username){
+
+        if(username.equals("none")) {
+            return "redirect:/user/login";
+        }
+
         Listing listing = listingDao.findOne(listingId);
         HashMap<String, Tag> tags = new HashMap<String, Tag>();
         model.addAttribute("title", listing.getTitle());

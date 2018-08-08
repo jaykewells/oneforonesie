@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,14 +30,23 @@ public class AdminController {
     private CategoryDao categoryDao;
 
     @RequestMapping(value="")
-    public String adminindex(Model model){
+    public String adminindex(Model model, @CookieValue(value="user", defaultValue="none") String username,
+                             @CookieValue(value="role", defaultValue="USER") String role){
 
+        if(username.equals("none") || !role.equals("ADMIN")) {
+            return "redirect:/user/login";
+        }
         model.addAttribute("title", "Admin Functions");
         return "admin/index";
     }
 
     @RequestMapping(value="category", method=RequestMethod.GET)
-    public String category(Model model){
+    public String category(Model model, @CookieValue(value="user", defaultValue="none") String username,
+                           @CookieValue(value="role", defaultValue="USER") String role){
+        if(username.equals("none") || !role.equals("ADMIN")) {
+            return "redirect:/user/login";
+        }
+
         model.addAttribute("category", new Category());
         model.addAttribute("title", "New Category");
         model.addAttribute("categories", categoryDao.findAll());
@@ -44,8 +54,13 @@ public class AdminController {
     }
 
     @RequestMapping(value="category", method=RequestMethod.POST)
-    public String category(Model model, @Valid @ModelAttribute Category category, Errors errors){
+    public String category(Model model, @Valid @ModelAttribute Category category, Errors errors,
+                           @CookieValue(value="user", defaultValue="none") String username,
+                           @CookieValue(value="role", defaultValue="USER") String role){
 
+        if(username.equals("none") || !role.equals("ADMIN")) {
+            return "redirect:/user/login";
+        }
         if (!errors.hasErrors()){
             categoryDao.save(category);
             model.addAttribute("title", "Admin Functions");
@@ -60,7 +75,12 @@ public class AdminController {
     }
 
     @RequestMapping(value="tag", method=RequestMethod.GET)
-    public String tag(Model model){
+    public String tag(Model model, @CookieValue(value="user", defaultValue="none") String username,
+                      @CookieValue(value="role", defaultValue="USER") String role){
+
+        if(username.equals("none") || !role.equals("ADMIN")) {
+            return "redirect:/user/login";
+        }
         model.addAttribute("tag", new Tag());
         model.addAttribute("title", "New Tag");
         model.addAttribute("categories", categoryDao.findAll());
@@ -68,8 +88,12 @@ public class AdminController {
     }
 
     @RequestMapping(value="tag", method=RequestMethod.POST)
-    public String tag (Model model, @Valid @ModelAttribute Tag tag, Errors errors){
-
+    public String tag (Model model, @Valid @ModelAttribute Tag tag, Errors errors,
+                       @CookieValue(value="user", defaultValue="none") String username,
+                       @CookieValue(value="role", defaultValue="USER") String role){
+        if(username.equals("none") || !role.equals("ADMIN")) {
+            return "redirect:/user/login";
+        }
         if (!errors.hasErrors() ){
             tagDao.save(tag);
             model.addAttribute("title", "Admin Functions");

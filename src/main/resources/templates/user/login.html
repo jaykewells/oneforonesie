@@ -9,9 +9,11 @@
     Bad Credentials.
 </p>
 
-<form th:action="@{/user/login}" method="POST">
-    User Name : <input type="text" name="username"/><br/><br/>
-    Password : <input type="password" name="password"/> <br/><br/>
+<form th:action="@{/user/login}" method="POST" th:object="${form}">
+    User Name : <input type="text" name="username" th:field="*{username}"/><br/>
+    <div th:error="*{username}"></div><br/>
+    Password : <input type="password" name="password" th:field="*{password}"/> <br/>
+    <div th:error="*{password}"></div><br/>
     <input type="submit" value="Login"/>
 </form>
 

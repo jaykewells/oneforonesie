@@ -1,4 +1,6 @@
-package com.ofonesie.ofonesie.models;
+package com.ofonesie.ofonesie.models.forms;
+
+import com.ofonesie.ofonesie.models.Listing;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,20 +21,17 @@ public class UserInfoForm {
         @Size(min=3, max=50, message = "Must have a password at least 3 characters long.")
         private String password;
 
-        @NotNull
+        @NotNull(message = "Must Verify your Password!")
         private String verify;
 
-        private String passError;
-        @NotNull
+        @NotNull(message = "Must include a first name!")
         private String firstName;
 
-        @NotNull
+        @NotNull(message = "Must include a last name!")
         private String lastName;
 
-        @NotNull
+        @NotNull(message = "Must include a street address!")
         private String address1;
-
-        private String address2;
 
         @NotNull
         private String city;
@@ -43,6 +42,7 @@ public class UserInfoForm {
         @NotNull
         private Integer zip;
 
+        @NotNull
         private String role;
 
         @OneToMany
@@ -51,15 +51,14 @@ public class UserInfoForm {
 
         public UserInfoForm(){}
         public UserInfoForm(String username, String password, String firstName,
-                        String lastName, String address1, String address2,
+                        String lastName, String address1,
                         String city, String state, Integer zip) {
             this.username = username;
             this.password = password;
-            this.role = "User";
+            this.role = "USER";
             this.firstName = firstName;
             this.lastName = lastName;
             this.address1 = address1;
-            this.address2 = address2;
             this.city = city;
             this.state = state;
             this.zip = zip;
@@ -89,15 +88,7 @@ public class UserInfoForm {
         this.verify = verify;
     }
 
-    public String getPassError() {
-        return passError;
-    }
-
-    public void setPassError(String passError) {
-        this.passError = passError;
-    }
-
-    public String getFirstName() {
+        public String getFirstName() {
             return firstName;
         }
 
@@ -119,14 +110,6 @@ public class UserInfoForm {
 
         public void setAddress1(String address1) {
             this.address1 = address1;
-        }
-
-        public String getAddress2() {
-            return address2;
-        }
-
-        public void setAddress2(String address2) {
-            this.address2 = address2;
         }
 
         public String getCity() {

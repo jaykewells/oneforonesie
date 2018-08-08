@@ -15,6 +15,7 @@ public class UserInfo {
     private int id;
 
     @NotNull
+    @Column(unique=true)
     @Size(min=3, max=50, message = "You must have a Username at least 3 characters long and shorter than 50 characters.")
     private String username;
 
@@ -31,7 +32,6 @@ public class UserInfo {
     @NotNull
     private String address1;
 
-    private String address2;
 
     @NotNull
     private String city;
@@ -52,14 +52,14 @@ public class UserInfo {
 
     public UserInfo(String username, String password, String firstName,
                     String lastName, String address1,
-                    String city, String state, Integer zip) {
+                    String aCity, String state, Integer zip) {
         this.username = username;
         this.password = password;
-        this.role = "User";
+        this.role = "USER";
         this.firstName = firstName;
         this.lastName = lastName;
         this.address1 = address1;
-        this.city = city;
+        this.city = aCity;
         this.state = state;
         this.zip = zip;
     }
@@ -102,14 +102,6 @@ public class UserInfo {
 
     public void setAddress1(String address1) {
         this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
     }
 
     public String getCity() {
