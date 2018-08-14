@@ -3,24 +3,94 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: nav"></div>
-
-<h3>Login to One for Onesie</h3>
-
+<div class="container">
+<h3>Register</h3>
 <form method="post" th:action="@{/user/register}" th:object="${form}">
+    <!--Login Info Block-->
+    <div class="card bg-light">
+        <div class="card-header"><h4>User Info</h4></div>
+        <div class="card-body">
+            <table>
+                <tr>
+                    <td>
+                        Username:
+                    </td>
+                    <td>
+                        <input type="text" id="username" th:field="*{username}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span th:errors="*{username}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Password:
+                    </td>
+                    <td>
+                        <input type="password" id="password" th:field="*{password}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span th:text="${passError}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Verify Password:
+                    </td>
+                    <td>
+                        <input type="password" id="verify" th:field="*{verify}"/>
+                    </td>
+                </tr>
 
-    <label>Username: <input type="text" id="username" th:field="*{username}"/></label><br/>
-    <span th:errors="*{username}"/>
-    <label>Password: <input type="password" id="password" th:field="*{password}"/></label><br/>
-    <label>Verify Password: <input type="password" id="verify" th:field="*{verify}"/></label><br/>
-    <span th:text="${passError}"></span>
-    <label>First Name: <input type="text" id="firstName" th:field="*{firstName}"/></label><br/>
-    <label>Last Name: <input type="text" id="lastName" th:field="*{lastName}"/></label><br/>
-    <label>Address 1: <input type="text" id="address1" th:field="*{address1}"/></label><br/>
-    <label>City: <input type="text" id="city" th:field="*{city}"/></label>
-    <label>State: <input type="text" id="State" th:field="*{state}"/></label>
-    <label>Zipcode: <input type="text" id="zip" th:field="*{zip}"/></label><br/>
+            </table>
+        </div>
+    </div>
+    <!--Shipping Info Block-->
+    <div class="card bg-light">
+        <div class="card-header"><h4>Shipping Information</h4></div>
+        <div class="card-body">
+            <table>
+                <tr>
+                    <td>
+                        First Name:
+                    </td>
+                    <td>
+                        <input type="text" id="firstName" th:field="*{firstName}"/>
+                    </td>
+                    <td>
+                        Last Name:
+                    </td>
+                    <td>
+                        <input type="text" id="lastName" th:field="*{lastName}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                    </td>
+                    <td>
+                        <input type="text" id="address1" th:field="*{address1}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><input type="text" id="city" th:field="*{city}"/></td>
+                    <td>State:</td>
+                    <td><input type="text" id="State" th:field="*{state}"/></td>
+                    <td>Zip Code</td>
+                    <td><input type="text" id="zip" th:field="*{zip}"/></td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <input type="submit" value="Submit"/>
-
+    <br/>
+    <br/>
 </form>
+    </div>
 </body>
 </html>

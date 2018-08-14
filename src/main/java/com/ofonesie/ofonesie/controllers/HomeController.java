@@ -1,6 +1,7 @@
 package com.ofonesie.ofonesie.controllers;
 
 
+import com.ofonesie.ofonesie.models.data.CategoryDao;
 import com.ofonesie.ofonesie.models.data.ListingDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,15 @@ public class HomeController {
     @Autowired
     private ListingDao listingDao;
 
+    @Autowired
+    private CategoryDao categoryDao;
+
     @RequestMapping(value="")
     public String index(Model model, @CookieValue(value="user", defaultValue="none") String username){
 
         model.addAttribute("title", "Home");
         model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("categories", categoryDao.findAll());
         return "home/index";
     }
 

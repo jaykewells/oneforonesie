@@ -3,14 +3,48 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: nav"></div>
+<div class="container">
+    <br/>
+    <div class="card">
+        <div class="card-header">
+            <h2 th:text="${listing.title}"></h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="img-fluid" src="https://cdn.shopify.com/s/files/1/1527/5153/products/pizza-slice-additional-baby-onesie-toddler-youth-tees-cole-coddle-clothing-set-2630395035700.png?v=1524839417"/>
+            </div>
+            <div class="col-sm-8" th:text="${listing.description}">
 
-<h2 th:text="${listing.title}"></h2>
-<p th:text="${listing.description}"/>
-<table>
-    <tr th:each="tag : ${tags}">
-        <td th:text="${tag.key}"></td>
-        <td th:text="${tag.value.title}"></td>
-    </tr>
-</table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="badge" th:each="tag : ${tags}"><a th:href="@{/listing/tag/} + ${tag.value.id}" th:text="${tag.value.title}"></a></span>
+                </div>
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-1">
+                    <form action="">
+                        <input type="button" value="Request"/>
+                    </form>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+        </div>
+
+    </div><br/>
+    <!-- Similar Onesies By Tag -->
+        <h3> Onesies You May Like </h3>
+        <div class="row">
+            <div class="card-deck">
+                <div class="col-sm-3" th:each="listing : ${related}">
+                    <div th:replace="fragments :: list-card"><!--Possible to change based on primary color tag?-->
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 </body>
 </html>

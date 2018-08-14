@@ -2,6 +2,7 @@ package com.ofonesie.ofonesie.controllers;
 
 
 import com.ofonesie.ofonesie.models.UserInfo;
+import com.ofonesie.ofonesie.models.data.CategoryDao;
 import com.ofonesie.ofonesie.models.forms.LoginForm;
 import com.ofonesie.ofonesie.models.forms.UserInfoForm;
 import com.ofonesie.ofonesie.models.data.UserInfoDAO;
@@ -21,10 +22,14 @@ public class LoginController {
     @Autowired
     private UserInfoDAO userInfoDao;
 
+    @Autowired
+    private CategoryDao categoryDao;
 
     @GetMapping("")
+    //TODO: Create a User Page that the user lands on after logging in.
     public String user(Model model){
         model.addAttribute("form", new LoginForm());
+        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Login");
         return "user/login";
     }
@@ -32,6 +37,7 @@ public class LoginController {
     @GetMapping("login")
     public String login(Model model){
         model.addAttribute("title", "Login");
+        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("form", new LoginForm());
         return "user/login";
     }
@@ -39,6 +45,7 @@ public class LoginController {
     @PostMapping("login")
     public String login(Model model, @ModelAttribute LoginForm form, HttpServletResponse response){
         UserInfo u = userInfoDao.findByUsername(form.getUsername());
+        model.addAttribute("categories", categoryDao.findAll());
         if(u == null){
             model.addAttribute("message", "Invalid Username");
             model.addAttribute("title", "Login");
@@ -60,6 +67,7 @@ public class LoginController {
 
             model.addAttribute("message", "Invalid Password");
             model.addAttribute("title", "Login");
+            model.addAttribute("form", new LoginForm());
             return "user/login";
         }
     }
@@ -70,6 +78,7 @@ public class LoginController {
     public String register(Model model){
 
         model.addAttribute("title", "Register");
+        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("form", new UserInfoForm());
 
         return "user/register";
@@ -82,6 +91,7 @@ public class LoginController {
         String ver = form.getVerify();
 
         model.addAttribute("title", "Register");
+        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("form", form);
       if(pass == ver){
             model.addAttribute("message", "Passwords don't match!");
@@ -108,6 +118,7 @@ public class LoginController {
 
         model.addAttribute("form", new LoginForm());
         model.addAttribute("title", "Login");
+        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("message", "Successfully Registered! Please Log In!");
         return "redirect:/user/login";
     }
@@ -121,6 +132,7 @@ public class LoginController {
                 c.setPath("/");
                 response.addCookie(c);
                 model.addAttribute("title", "Home");
+                model.addAttribute("categories", categoryDao.findAll());
                 model.addAttribute("message", "Logged Out!");
             }
         }

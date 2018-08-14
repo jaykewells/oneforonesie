@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+<div class="container">
+<div th:text="${message}"></div>
+<br/>
+    <div class="container">
+    <div class="card-columns">
+        <div th:each="listing : ${listings}">
+            <div th:replace="fragments :: list-card"><!--Possible to change based on primary color tag?-->
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

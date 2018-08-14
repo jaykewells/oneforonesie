@@ -55,6 +55,7 @@ public class ListingController {
         if(username.equals("none")) {
             return "redirect:/user/login";
         }
+
         model.addAttribute("categories", categoryDao.findAll());
         if (errors.hasErrors()){
             model.addAttribute("title", "New Listing");
@@ -68,7 +69,7 @@ public class ListingController {
 
     @RequestMapping(value="view/{listingId}")
     public String viewListing(Model model, @PathVariable int listingId, @CookieValue(value="user", defaultValue="none") String username){
-
+        model.addAttribute("categories", categoryDao.findAll());
         if(username.equals("none")) {
             return "redirect:/user/login";
         }
@@ -83,5 +84,28 @@ public class ListingController {
         tags.put("Theme", tagDao.findOne(listing.getTheme()));
         model.addAttribute("tags", tags);
         return "listing/listing";
+    }
+
+    @RequestMapping(value="tag/{tagId}")
+    public String viewTag(Model model, @PathVariable int tagId, @CookieValue(value="user", defaultValue="none") String username){
+        model.addAttribute("title", "Viewing all " + tagDao.findOne(tagId).getTitle() + " Onesies");
+        model.addAttribute("categories", categoryDao.findAll());
+        if(!listingDao.findByColor(tagId).isEmpty()){
+            model.addAttribute("listings", listingDao.findByColor(tagId));
+            return "home/index";
+        }else if(!listingDao.findBySeason(tagId).isEmpty()){
+            model.addAttribute("listings", listingDao.findBySeason(tagId));
+            return "home/index";
+        }else if(!listingDao.findBySize(tagId).isEmpty()){
+            model.addAttribute("listings", listingDao.findBySize(tagId));
+            return "home/index";
+        }else if(!listingDao.findByTheme(tagId).isEmpty()){
+            model.addAttribute("listings", listingDao.findByTheme(tagId));
+            return "home/index";
+        }
+
+        model.addAttribute("message", "No " + tagDao.findOne(tagId).getTitle() + " Onesies Found!");
+        model.addAttribute("listings", listingDao.findAll());
+        return "home/index";
     }
 }

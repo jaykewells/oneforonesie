@@ -4,26 +4,58 @@
     <meta charset="UTF-8"/>
     <title th:text="${title} + ' || One for Onesie'">One for Onesie</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <div th:fragment="nav">
-    <a th:href="@{/home}"><img th:src="@{~/img/logo.png}" width="150px" height="75px"/></a><br/>
-    <a th:href="@{/user/logout}">Logout</a>
-    <a th:href="@{/user/register}">Register</a>
-    <br/>
-    <div th:text="${message}"></div>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <a th:href="@{/home}"><img th:src="@{~/img/logo.png}" width="150px" height="75px"/></a><br/>
+            <!-- Toggler/collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <!--Each dropdown is a different Category-->
+                    <li class="nav-item dropdown" th:each="category : ${categories}">
+                        <a class="nav-link dropdown-toggle" id="navbardrop"
+                           data-toggle="dropdown" th:text="${category.title}"></a>
+                            <div class="dropdown-menu">
+                                <a th:each="tag : ${category.tags}" class="dropdown-item"
+                                   th:href="@{/listing/tag/} + ${tag.id}" th:text="${tag.title}"></a>
+                            </div>
+                    </li>
+            <!--Core Navigation-->
+            </ul>
+            </div>
+            <div>
+            <a th:href="@{/listing/add}">Add a Onesie</a><br/>
+                <a th:href="@{/user/logout}">Logout</a><br/>
+            <a th:href="@{/user/register}">Register</a>
+            </div>
+        </nav>
+        <div th:text="${message}"></div>
+    </div>
 </div>
 
-<div class="card" style="col-sm-3" th:fragment="list-card">
-    <a th:href="@{/listing/view/} + ${listing.id}">
-    <img class="card-img-top" src="@{~/img/logo.png}" width="150px" height="75px"/>
-    </a>
-    <h4 class="card-title" th:text="${listing.title}"></h4>
-    <a th:href="@{/listing/view/} + ${listing.id}" class="btn btn-primary">View</a>
-</div>
+
+<div class="card bg-light" th:fragment="list-card">
+        <div class="card-header"><a th:href="@{/listing/view/} + ${listing.id}" th:text="${listing.title}"></a></div>
+        <img class="card-img-top"
+             src="https://cdn.shopify.com/s/files/1/1527/5153/products/pizza-slice-additional-baby-onesie-toddler-youth-tees-cole-coddle-clothing-set-2630395035700.png?v=1524839417"/>
+        </div>
+
 </body>
 </html>
