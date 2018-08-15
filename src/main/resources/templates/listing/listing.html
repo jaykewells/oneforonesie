@@ -22,11 +22,19 @@
                 <div class="col-sm-4">
                     <span class="badge" th:each="tag : ${tags}"><a th:href="@{/listing/tag/} + ${tag.value.id}" th:text="${tag.value.title}"></a></span>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                    Owner
+                </div>
+                <div class="col-sm-1" th:text="${listing.owner.username}"></div>
+                <div class="col-sm-2">
                 </div>
                 <div class="col-sm-1">
-                    <form action="">
-                        <input type="button" value="Request"/>
+                    <form th:action="@{/listing/request/} + ${listing.id}" method="post">
+
+                        <input type="submit" value="Request"/>
                     </form>
                 </div>
                 <div class="col-sm-1">
@@ -40,7 +48,7 @@
         <div class="row">
             <div class="card-deck">
                 <div class="col-sm-3" th:each="listing : ${related}">
-                    <div th:replace="fragments :: list-card"><!--Possible to change based on primary color tag?-->
+                    <div th:replace="fragments :: list-card">
                     </div>
                 </div>
             </div>

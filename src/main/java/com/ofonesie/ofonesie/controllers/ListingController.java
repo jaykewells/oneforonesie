@@ -2,10 +2,9 @@ package com.ofonesie.ofonesie.controllers;
 
 import com.ofonesie.ofonesie.models.Listing;
 import com.ofonesie.ofonesie.models.Tag;
-import com.ofonesie.ofonesie.models.data.CategoryDao;
-import com.ofonesie.ofonesie.models.data.ListingDao;
-import com.ofonesie.ofonesie.models.data.TagDao;
-import com.ofonesie.ofonesie.models.data.UserInfoDAO;
+import com.ofonesie.ofonesie.models.Trade;
+import com.ofonesie.ofonesie.models.UserInfo;
+import com.ofonesie.ofonesie.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +36,9 @@ public class ListingController {
 
     @Autowired
     private UserInfoDAO userInfoDao;
+
+    @Autowired
+    private TradeDao tradeDao;
 
     @RequestMapping(value="add", method=RequestMethod.GET)
     public String addListing(Model model, @CookieValue(value="user", defaultValue="none") String username){
@@ -107,5 +109,26 @@ public class ListingController {
         model.addAttribute("message", "No " + tagDao.findOne(tagId).getTitle() + " Onesies Found!");
         model.addAttribute("listings", listingDao.findAll());
         return "home/index";
+    }
+
+    @PostMapping(value="request/{listingId}")
+    public String requestTrade(Model model, @PathVariable int listingId, @CookieValue(value="user", defaultValue="none") String username){
+        Listing listing = listingDao.findOne(listingId);
+        UserInfo prevOwner = listing.getOwner();
+        UserInfo requester = userInfoDao.findByUsername(username);
+        Trade trade = new Trade(listingId, prevOwner.getId(), requester.getId());
+        listing.setOwner(requester);
+        tradeDao.save(trade);
+        listingDao.save(listing);
+
+        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("listings", listingDao.findAll());
+        model.addAttribute("title", "Home");
+        model.addAttribute("message", "Successfully requested " + listing.getTitle() + " !");
+
+
+        return"redirect:/home";
+
+
     }
 }
