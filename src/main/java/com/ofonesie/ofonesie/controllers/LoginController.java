@@ -43,17 +43,17 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public String login(Model model, @ModelAttribute LoginForm form, HttpServletResponse response){
+    public String login(Model model, @ModelAttribute LoginForm form, HttpServletResponse response) {
         UserInfo u = userInfoDao.findByUsername(form.getUsername());
         model.addAttribute("categories", categoryDao.findAll());
-        if(u == null){
+        if (u == null) {
             model.addAttribute("message", "Invalid Username");
             model.addAttribute("title", "Login");
             model.addAttribute("form", new LoginForm());
-            return"user/login";
+            return "user/login";
         }
 
-        if(u.getPassword().equals(form.getPassword())){
+        if (u.getPassword().equals(form.getPassword())) {
 
             Cookie c = new Cookie("user", u.getUsername());
             c.setPath("/");
@@ -72,8 +72,6 @@ public class LoginController {
         }
     }
 
-    //TODO: Add @PostMapping("login") to actually save the user to the active session.
-
     @GetMapping("register")
     public String register(Model model){
 
@@ -84,7 +82,6 @@ public class LoginController {
         return "user/register";
     }
     @PostMapping("register")
-    //TODO: Figure out why this is not Validating
     public String register(Model model, UserInfoForm form, Error errors){
 
         String pass = form.getPassword();

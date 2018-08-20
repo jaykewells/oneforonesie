@@ -22,7 +22,6 @@ public class Listing {
     @Size(min=1, message = "Description Must Not Be Empty")
     private String description;
 
-    //TODO: Rework as HashMap with the Category Name as the Key and the Tag as the value
     private int size;
     private int season;
     private int color;

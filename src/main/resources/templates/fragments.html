@@ -17,6 +17,7 @@
 </head>
 <body>
 
+<!--Navigation Bar-->
 <div th:fragment="nav">
     <div class="container">
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -41,18 +42,24 @@
             </ul>
             </div>
             <div>
-            <a th:href="@{/listing/add}">Add a Onesie</a><br/>
+                <a th:href="@{/listing/add}">Add a Onesie</a><br/>
+                <a th:href="@{/user/login}">Login</a> //
                 <a th:href="@{/user/logout}">Logout</a><br/>
-            <a th:href="@{/user/register}">Register</a>
+                <a th:href="@{/user/register}">Register</a><br/>
+
             </div>
+
         </nav>
-        <div th:text="${message}"></div>
+
+        <div th:if="${message}" class="alert alert-warning" th:text="${message}"></div>
     </div>
 </div>
 
-
-<div class="card bg-light" th:fragment="list-card">
-        <div class="card-header"><a th:href="@{/listing/view/} + ${listing.id}" th:text="${listing.title}"></a></div>
+<!--Listing Card-->
+<div class="card bg-light m-2 mt-3 mb-3" th:fragment="list-card">
+        <div class="card-header">
+            <a th:href="@{/listing/view/} + ${listing.id}" th:text="${listing.title}"></a>
+        </div>
         <img class="card-img-top"
              src="https://cdn.shopify.com/s/files/1/1527/5153/products/pizza-slice-additional-baby-onesie-toddler-youth-tees-cole-coddle-clothing-set-2630395035700.png?v=1524839417"/>
         </div>
