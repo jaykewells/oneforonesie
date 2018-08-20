@@ -54,22 +54,42 @@ public class ListingController {
         model.addAttribute("categories", categoryDao.findAll());
         return "listing/add";
     }
-    @RequestMapping(value="add", method=RequestMethod.POST)
-    public String saveListing(Model model, @ModelAttribute @Valid Listing listing, Errors errors, @CookieValue(value="user", defaultValue="none") String username){
 
+    @RequestMapping(value="review", method=RequestMethod.POST)
+    public String review(Model model, @CookieValue(value="user", defaultValue = "none") String username,
+                         @ModelAttribute @Valid Listing listing, Errors errors){
+
+        model.addAttribute("categories", categoryDao.findAll());
         if(username.equals("none")) {
             return "redirect:/user/login";
         }
-
-        model.addAttribute("categories", categoryDao.findAll());
         if (errors.hasErrors()){
             model.addAttribute("title", "New Listing");
             model.addAttribute("listing", listing);
             return "listing/add";
         }
+
+        model.addAttribute("listing", listing);
+        model.addAttribute("title", "Review Listing");
+        HashMap<String, Tag> tags = new HashMap<String, Tag>();
+        tags.put("Size", tagDao.findOne(listing.getSize()));
+        tags.put("Season", tagDao.findOne(listing.getSeason()));
+        tags.put("Color", tagDao.findOne(listing.getColor()));
+        tags.put("Theme", tagDao.findOne(listing.getTheme()));
+        model.addAttribute("tags", tags);
+
+        return "listing/review";
+    }
+
+    @RequestMapping(value="add", method=RequestMethod.POST)
+    public String saveListing(Model model, @ModelAttribute Listing listing, @CookieValue(value="user", defaultValue="none") String username){
+
+        if(username.equals("none")) {
+            return "redirect:/user/login";
+        }
         listing.setOwner(userInfoDao.findByUsername(username));
         listingDao.save(listing);
-        return "redirect:view/" + listing.getId();
+        return "redirect:/listing/view/" + listing.getId();
     }
 
     @RequestMapping(value="view/{listingId}")
@@ -87,9 +107,9 @@ public class ListingController {
         tags.put("Season", tagDao.findOne(listing.getSeason()));
         tags.put("Color", tagDao.findOne(listing.getColor()));
         tags.put("Theme", tagDao.findOne(listing.getTheme()));
-
-        model.addAttribute("related", listingDao.randomListings());
         model.addAttribute("tags", tags);
+        model.addAttribute("related", listingDao.randomListings());
+
         return "listing/listing";
     }
 

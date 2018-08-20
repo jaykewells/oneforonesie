@@ -10,7 +10,7 @@
             });
             </script>
 <h1>List a Onesie</h1>
-<form method="post" th:object="${listing}">
+<form th:action="@{/listing/review/}" method="post" th:object="${listing}">
 <br/>
 
     <label th:for="title">Listing Title</label>

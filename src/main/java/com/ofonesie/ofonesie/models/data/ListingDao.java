@@ -17,7 +17,7 @@ public interface ListingDao extends CrudRepository<Listing, Integer> {
 
     List<Listing> findByTheme(int theme);
 
-    @Query(value = "SELECT * FROM listing ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    @Query(value = "SELECT * FROM listing ORDER BY RAND() LIMIT 4", nativeQuery = true)
     List<Listing> randomListings();
 
 }

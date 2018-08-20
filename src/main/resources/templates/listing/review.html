@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+<div class="container">
+    <br/>
+    <div>Please Review the listing before you submit it! This is how it will appear on the site. </div>
+    <div class="card">
+        <div class="card-header">
+            <h2 th:text="${listing.title}"></h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <img class="img-fluid" src="https://cdn.shopify.com/s/files/1/1527/5153/products/pizza-slice-additional-baby-onesie-toddler-youth-tees-cole-coddle-clothing-set-2630395035700.png?v=1524839417"/>
+            </div>
+            <div class="col-sm-8" th:text="${listing.description}">
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div th:unless="${!tags.empty}">
+                    <span class="badge"
+                          th:each="tag : ${tags}"><a
+                            th:href="@{/listing/tag/} + ${tag.value.id}"
+                            th:text="${tag.value.title}"></a></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div th:unless="${!tags.empty}">
+                    <span class="badge"
+                          th:each="tag : ${tags}"><a
+                            href="#"
+                            th:text="${tag.value.title}"></a></span>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-1">
+                    <form th:action="@{/listing/add/}" method="post" th:object="${listing}">
+                        <input type="hidden" th:field="*{title}" th:value="${listing.title}"/>
+                        <input type="hidden" th:field="*{description}" th:value="${listing.description}"/>
+                        <input type="hidden" th:field="*{size}" th:value="${listing.size}"/>
+                        <input type="hidden" th:field="*{season}" th:value="${listing.season}"/>
+                        <input type="hidden" th:field="*{color}" th:value="${listing.color}"/>
+                        <input type="hidden" th:field="*{theme}" th:value="${listing.theme}"/>
+                        <input type="submit" value="Submit Listing!"/>
+                    </form>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
