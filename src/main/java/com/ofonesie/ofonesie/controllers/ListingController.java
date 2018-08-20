@@ -12,7 +12,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jayke Wells
@@ -84,6 +87,8 @@ public class ListingController {
         tags.put("Season", tagDao.findOne(listing.getSeason()));
         tags.put("Color", tagDao.findOne(listing.getColor()));
         tags.put("Theme", tagDao.findOne(listing.getTheme()));
+
+        model.addAttribute("related", listingDao.randomListings());
         model.addAttribute("tags", tags);
         return "listing/listing";
     }

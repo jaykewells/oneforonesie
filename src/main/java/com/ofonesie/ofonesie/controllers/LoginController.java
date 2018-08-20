@@ -26,7 +26,6 @@ public class LoginController {
     private CategoryDao categoryDao;
 
     @GetMapping("")
-    //TODO: Create a User Page that the user lands on after logging in.
     public String user(Model model, HttpServletRequest request){
         //Nav Info
         model.addAttribute("categories", categoryDao.findAll());
