@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: nav"></div>
+<div class="container">
+    <div class="card bg-light">
+        <div class="card-header"
+             th:text="'User Page for: ' + ${user.firstName} + ' as ' + ${user.username}">
+        </div>
+        <div class="card-body">
+            <h3>My Listings</h3>
+            <div class="card-deck">
+                <div class="col-sm-4" th:each="listing : ${user.listings}">
+                    <div  th:replace="fragments :: list-card">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>
+</body>
+</html>

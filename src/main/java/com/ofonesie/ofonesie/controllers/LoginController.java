@@ -27,11 +27,28 @@ public class LoginController {
 
     @GetMapping("")
     //TODO: Create a User Page that the user lands on after logging in.
-    public String user(Model model){
-        model.addAttribute("form", new LoginForm());
+    public String user(Model model, HttpServletRequest request){
+        //Nav Info
         model.addAttribute("categories", categoryDao.findAll());
-        model.addAttribute("title", "Login");
-        return "user/login";
+        Cookie user = new Cookie("Failed", "Failed");
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies){
+            if(cookie.getName().equals("user")){
+                user = cookie;
+            }
+        }
+        System.out.println("!!! User Name Is: " + user.getValue());
+        UserInfo active = userInfoDao.findByUsername(user.getValue());
+        if(active != null){
+            model.addAttribute("user", active);
+            model.addAttribute("title", active.getUsername());
+            return"user/user";
+        }else{
+            model.addAttribute("title", "Login");
+            model.addAttribute("form", new LoginForm());
+            return"redirect:/user/login/";
+        }
+
     }
 
     @GetMapping("login")
@@ -62,7 +79,7 @@ public class LoginController {
             Cookie auth = new Cookie("role", u.getRole());
             auth.setPath("/");
             response.addCookie(auth);
-            return "redirect:/listing/add";
+            return "redirect:/user/";
         } else {
 
             model.addAttribute("message", "Invalid Password");
@@ -113,11 +130,11 @@ public class LoginController {
                 form.getCity(), form.getState(), form.getZip());
         userInfoDao.save(user);
 
-        model.addAttribute("form", new LoginForm());
-        model.addAttribute("title", "Login");
+        model.addAttribute("title", user.getUsername());
         model.addAttribute("categories", categoryDao.findAll());
-        model.addAttribute("message", "Successfully Registered! Please Log In!");
-        return "redirect:/user/login";
+        model.addAttribute("user", user);
+        model.addAttribute("message", "Successfully Registered!");
+        return "redirect:/user/";
     }
 
     @GetMapping("logout")
@@ -132,6 +149,10 @@ public class LoginController {
                 model.addAttribute("categories", categoryDao.findAll());
                 model.addAttribute("message", "Logged Out!");
             }
+        }else{
+            model.addAttribute("title", "Home");
+            model.addAttribute("categories", categoryDao.findAll());
+            model.addAttribute("message", "Not Currently Logged In!");
         }
         return "redirect:/home/";
     }

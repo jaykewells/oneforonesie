@@ -9,6 +9,4 @@ import java.util.List;
 public interface UserInfoDAO extends CrudRepository<UserInfo, Integer>{
 
     UserInfo findByUsername(String username);
-
-    //List<Listing> getAllUserListings();
 }
