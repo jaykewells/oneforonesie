@@ -3,6 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div th:replace="fragments :: nav"></div>
+<div class="container">
 <h4 th:text="${title}"></h4>
 <a th:href="@{/admin}">Back to Admin</a>
 <form th:object="${tag}" method="post">
@@ -33,5 +34,6 @@
             </table></td>
     </tr>
 </table>
+</div>
 </body>
 </html>

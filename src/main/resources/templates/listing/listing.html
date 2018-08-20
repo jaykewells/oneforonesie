@@ -20,12 +20,12 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-sm-4">
-                    <div th:unless="${!tags.empty}">
-                    <span class="badge"
-                          th:each="tag : ${tags}"><a
-                          th:href="@{/listing/tag/} + ${tag.value.id}"
-                          th:text="${tag.value.title}"></a></span>
-                    </div>
+                    <span class="badge" th:each="tag : ${tags}">
+                        <div th:unless="${tag.value} == null">
+                        <a th:href="@{/listing/tag/} + ${tag.value.id}"
+                           th:text="${tag.value.title}"></a>
+                        </div>
+                    </span>
                 </div>
 
                 <div class="col-sm-2">

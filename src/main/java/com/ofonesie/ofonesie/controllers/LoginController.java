@@ -26,7 +26,11 @@ public class LoginController {
     private CategoryDao categoryDao;
 
     @GetMapping("")
-    public String user(Model model, HttpServletRequest request){
+    public String user(Model model, HttpServletRequest request, @CookieValue(value="user", defaultValue="none") String username){
+        if(username.equals("none")) {
+            return "redirect:/user/login";
+        }
+
         //Nav Info
         model.addAttribute("categories", categoryDao.findAll());
         Cookie user = new Cookie("Failed", "Failed");

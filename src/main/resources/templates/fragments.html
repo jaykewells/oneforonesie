@@ -42,7 +42,7 @@
             </ul>
             </div>
             <div>
-                <a th:href="@{/listing/add}">Add a Onesie</a><br/>
+                <a th:href="@{/listing/add}">Add a Onesie</a> // <a th:href="@{/user/}">My Onesies</a><br/>
                 <a th:href="@{/user/login}">Login</a> //
                 <a th:href="@{/user/logout}">Logout</a><br/>
                 <a th:href="@{/user/register}">Register</a><br/>
@@ -60,8 +60,9 @@
         <div class="card-header">
             <a th:href="@{/listing/view/} + ${listing.id}" th:text="${listing.title}"></a>
         </div>
+        <a th:href="@{/listing/view/} + ${listing.id}">
         <img class="card-img-top"
-             th:src="@{~/img/logo.png}"/>
+             src="https://cdn.shopify.com/s/files/1/1527/5153/products/pizza-slice-additional-baby-onesie-toddler-youth-tees-cole-coddle-clothing-set-2630395035700.png?v=1524839417"/></a>
         </div>
 
 </body>
