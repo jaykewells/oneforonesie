@@ -8,6 +8,7 @@
             $(document).ready(function(){
                 $('[data-toggle="tooltip"]').tooltip();
             });
+
             </script>
 <h1>List a Onesie</h1>
 <form th:action="@{/listing/review/}" method="post" th:object="${listing}">
@@ -25,9 +26,9 @@
 
             <div th:switch="${category.title}">
             <div th:case="Size">
-                    <label th:for="${category.title}" th:text="${category.title}"></label><br/>
+            <label th:for="${category.title}" th:text="${category.title}"></label><br/>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary bg-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
+              <label class="btn btn-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
            <input type="radio"  class="form-check-input"
                   th:name="${category.title}"
                   th:value="${tag.id}"
@@ -41,7 +42,7 @@
             <div th:case="Season">
                 <label th:for="${category.title}" th:text="${category.title}"></label><br/>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary bg-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
+                <label class="btn btn-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
                 <input type="radio"
                        th:name="${category.title}"
                        th:value="${tag.id}"
@@ -55,7 +56,7 @@
             <div th:case="Color">
                 <label th:for="${category.title}" th:text="${category.title}"></label><br/>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary bg-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
+                <label class="btn btn-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
                 <input type="radio"
                        th:name="${category.title}"
                        th:value="${tag.id}"
@@ -68,7 +69,7 @@
             <div th:case="Theme">
                 <label th:for="${category.title}" th:text="${category.title}"></label><br/>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary bg-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
+                <label class="btn btn-info" th:each="tag : ${category.tags}" data-toggle="tooltip" th:title="${tag.description}">
                 <input type="radio"
                        th:name="${category.title}"
                        th:value="${tag.id}"

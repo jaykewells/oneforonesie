@@ -38,7 +38,16 @@
                     </div>
                 </div>
                 <div class="col-sm-2"></div>
-                <div class="col-sm-2"></div>
+                <div class="col-sm-2">
+                    <form th:action="@{/listing/add/}" method="get" th:object="${listing}">
+                        <input type="hidden" th:field="*{title}" th:value="${listing.title}"/>
+                        <input type="hidden" th:field="*{description}" th:value="${listing.description}"/>
+                        <input type="hidden" th:field="*{size}" th:value="${listing.size}"/>
+                        <input type="hidden" th:field="*{season}" th:value="${listing.season}"/>
+                        <input type="hidden" th:field="*{color}" th:value="${listing.color}"/>
+                        <input type="hidden" th:field="*{theme}" th:value="${listing.theme}"/>
+                        <input type="submit" value="Edit Listing"/>
+                </div>
                 <div class="col-sm-1">
                     <form th:action="@{/listing/add/}" method="post" th:object="${listing}">
                         <input type="hidden" th:field="*{title}" th:value="${listing.title}"/>
